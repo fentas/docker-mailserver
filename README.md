@@ -1,5 +1,7 @@
 # docker-mailserver
 
+[![Build Status](https://travis-ci.org/tomav/docker-mailserver.svg?branch=master)](https://travis-ci.org/tomav/docker-mailserver)
+
 A fullstack but simple mail server (smtp, imap, antispam, antivirus...).  
 Only configuration files, no SQL database. Keep it simple and versioned.  
 Easy to deploy and upgrade.  
@@ -12,11 +14,11 @@ Includes:
 - spamassasin
 - clamav with automatic updates
 
-Why I created this container: [Simple mail server with Docker](http://tvi.al/simple-mail-server-with-docker/)
+Why I created this image: [Simple mail server with Docker](http://tvi.al/simple-mail-server-with-docker/)
 
 ## informations:
 
-- only config files, no *sql database required
+- only config files, no *sql database required*
 - mails are stored in `/var/mail/${domain}/${username}`
 - you should use a data volume container for `/var/mail` for data persistence
 - email login are full email address (`username1@my-domain.com`)
@@ -25,6 +27,8 @@ Why I created this container: [Simple mail server with Docker](http://tvi.al/sim
 - antispam rules are managed in `./spamassassin/rules.cf`
 - files must be mounted to `/tmp` in your container (see `docker-compose.yml` template)
 - ssl is strongly recommended, you can provide a self-signed certificate, see below
+- [includes integration tests](https://travis-ci.org/tomav/docker-mailserver)
+- [builds automated on docker hub](https://hub.docker.com/r/tvial/docker-mailserver/)
 
 ## installation
 
@@ -75,7 +79,8 @@ You can easily generate a self-signed SSL certificate by using the following com
 	# Press enter
 	# Enter a password when needed
 	# Fill information like Country, Organisation name
-	# Fill "mail.my-domain.com" as FQDN
+	# Fill "my-domain.com" as FQDN for CA, and "mail.my-domain.com" for the certificate.
+	# They HAVE to be different, otherwise you'll get a `TXT_DB error number 2`
 	# Don't fill extras
 	# Enter same password when needed
 	# Sign the certificate? [y/n]:y
@@ -117,4 +122,4 @@ Feel free to improve this docker image.
 
 # wanna help?
 
-Fork, improve and PR. ;-)
+Fork, improve, add tests and PR. ;-)
